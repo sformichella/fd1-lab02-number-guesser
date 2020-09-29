@@ -12,19 +12,34 @@
 
 <body>
    
+    <main>
 
+        <header>Can you guess the right number?</header>
 
+        <section class="game-section">
 
+            <article class="guessing-section">
+                <p>Guess a number between 0 and <input id="guess-range" value="10" type="text"/>.</p>
 
+                <input id="user-input" type="text"/>
 
+                <button id="guess-button">Guess!</button>
+            </article>
 
+            <article id="feedback-section">
+                <p id="feedback-paragraph"></p>
+                <p id="correct-guess-paragraph" class="hidden"></p>
+            </article>
 
+        </section>
 
+        <nav>
+            <button class="hidden" id="try-again-button">Try Again?</button>
+        </nav>
 
+    </main>
 
-
-    
-    <script type="module" src="app.js"></script>
+    <script type="module" src="./apps/app.js"></script>
 </body>
 
 </html>

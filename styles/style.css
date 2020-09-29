@@ -8,3 +8,53 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+header {
+    padding: 20px;
+    font-size: 5em;
+}
+
+article {
+    padding: 50px;
+}
+
+.game-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.guessing-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    max-width: 500px;
+}
+
+input {
+    width: 50px;
+}
+
+#feedback-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
