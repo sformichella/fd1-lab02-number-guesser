@@ -1,75 +1,96 @@
-
 import {
-    compareNumbers,
-    handleCorrectGuess,
-    handleIncorrectGuess,
-    handleNoMoreGuesses,
-    toggleHidden
+    compareNumbers, toggleHidden
 } from './utils.js'
 
-let guessesLeft = 5;
 
 
-let guessButton =  document.getElementById('guess-button');
+let userGuess = document.getElementById('user-guess');
+let guessRange = document.getElementById('range');
+let guessesLeftMessage = document.getElementById('guesses-left');
+let directionFeedback = document.getElementById('direction-feedback');
+let correctGuessMessage = document.getElementById('correct-number');
+
+let guessButton = document.getElementById('guess-button');
 let tryAgainButton = document.getElementById('try-again-button');
-let messageParagraph = document.getElementById('feedback-paragraph');
-let correctGuessParagraph = document.getElementById('correct-guess-paragraph');
-let userInput = document.getElementById('user-input');
-let guessRangeElem = document.getElementById('guess-range');
 
-let correctGuess = Math.floor(Math.random() * Number(guessRangeElem.value))
-correctGuessParagraph.textContent = `The correct guess was ${correctGuess}`;
+let correctGuess = Math.floor(Math.random() * Number(guessRange.value));
 
-let userNumber = Number(userInput.value)
+let guessesLeft = 3;
+
+
 guessButton.addEventListener('click', guessButtonHandler);
 
-tryAgainButton.addEventListener('click', tryAgainButtonHandler);
+tryAgainButton.addEventListener('click', tryAgainHandler);
 
 
 
 function guessButtonHandler() {
-    if (userInput.value === '') {
-        messageParagraph.textContent = 'Please enter a guess!!!';
+
+    guessesLeftMessage.textContent = ''
+    if (userGuess.value === '') {
+        guessesLeftMessage.textContent = 'Please enter a guess!';
         return;
-    }
+    };
 
     guessesLeft--;
 
     if (guessesLeft < 1) {
-        if (!compareNumbers(userNumber, correctGuess)) {
-            handleCorrectGuess()
-            console.log('No more guess, correct');
+        if (!compareNumbers(Number(userGuess.value), correctGuess)) {
+            handleCorrectGuess();
         }
         else {
-            handleNoMoreGuesses()
-            console.log('No more guess, incorrect');
+            handleNoMoreGuesses();
         }
         return;
     }
 
-    if (!compareNumbers(userNumber, correctGuess)) {
+    if (!compareNumbers(Number(userGuess.value), correctGuess)) {
         handleCorrectGuess()
-        console.log('correct');
     }
     else {
         handleIncorrectGuess()
-        console.log('incorrect');
     }
-
-    return;
 }
 
 
 
-function tryAgainButtonHandler () {
-    messageParagraph.textContent = '';
+function handleCorrectGuess() {
+    directionFeedback.textContent = 'Whoa! You guessed the number!'
 
     toggleHidden(guessButton);
     toggleHidden(tryAgainButton);
-    toggleHidden(correctGuessParagraph);
 
-    guessesLeft = 5;
-    correctGuess = Math.floor(Math.random() * Number(guessRangeElem.value))
+    guessesLeft = 3;
+}
 
-    console.log(guessesLeft);
+function handleIncorrectGuess() {
+    let userNumber = Number(userGuess.value);
+
+    if (compareNumbers(userNumber, correctGuess) === 1) {
+        directionFeedback.textContent = 'Nope! Guess Lower!'
+    }
+    if (compareNumbers(userNumber, correctGuess) === -1) {
+        directionFeedback.textContent = 'Nope! Guess Higher!'
+    }
+}
+
+function handleNoMoreGuesses() {
+    directionFeedback.textContent = "Oh no! You've no more guesses!"
+    correctGuessMessage.textContent = `The correct number was ${correctGuess}`
+
+    toggleHidden(guessButton);
+    toggleHidden(tryAgainButton);
+
+    guessesLeft = 3;
+}
+
+function tryAgainHandler() {
+    userGuess.value = '';
+    correctGuessMessage.textContent = '';
+    directionFeedback.textContent = '';
+
+    correctGuess = Math.floor(Math.random() * Number(guessRange.value));
+
+    toggleHidden(guessButton);
+    toggleHidden(tryAgainButton);
 }
