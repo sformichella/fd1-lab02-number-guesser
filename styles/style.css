@@ -42,6 +42,7 @@ article {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 500px;
 }
 
 img {
@@ -57,4 +58,5 @@ input {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 500px;
 }
